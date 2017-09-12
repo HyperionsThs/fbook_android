@@ -11,6 +11,7 @@ import com.fstyle.structure_android.widget.dialog.DialogManager
 import com.fstyle.structure_android.widget.dialog.DialogManagerImpl
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 
 /**
  * This is a Dagger module. We use this to pass in the View dependency to
@@ -43,7 +44,15 @@ class MainPageModule(private val mFragment: Fragment) {
 
   @FragmentScope
   @Provides
+  @Named("AdapterRating")
   fun provideMainPageAdapter(): MainPageTopRatingAdapter {
+    return MainPageTopRatingAdapter(mFragment.context)
+  }
+
+  @FragmentScope
+  @Provides
+  @Named("AdapterLate")
+  fun provideMainPageAdapterLate(): MainPageTopRatingAdapter {
     return MainPageTopRatingAdapter(mFragment.context)
   }
 }

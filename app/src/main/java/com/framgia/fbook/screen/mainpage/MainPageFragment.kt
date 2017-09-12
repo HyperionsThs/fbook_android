@@ -15,6 +15,7 @@ import com.framgia.fbook.screen.mainpage.adapter.MainPageTopRatingAdapter
 import com.framgia.fbook.screen.onItemRecyclerViewClickListener
 import com.fstyle.structure_android.widget.dialog.DialogManager
 import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * MainPage Screen.
@@ -25,8 +26,11 @@ class MainPageFragment : BaseFragment(), MainPageContract.ViewModel, onItemRecyc
   internal lateinit var mPresenter: MainPageContract.Presenter
   @Inject
   lateinit var mDialogManager: DialogManager
-  @Inject
-  lateinit var mMainPageAdapter: MainPageTopRatingAdapter
+
+  @field:[Inject Named("AdapterLate")]
+  lateinit var mMainPageAdapterLateBook: MainPageTopRatingAdapter
+  @field:[Inject Named("AdapterRating")]
+  lateinit var mMainPageAdapterRatingBook: MainPageTopRatingAdapter
 
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
       savedInstanceState: Bundle?): View? {
@@ -39,8 +43,9 @@ class MainPageFragment : BaseFragment(), MainPageContract.ViewModel, onItemRecyc
     val binding = DataBindingUtil.inflate<FragmentMainPageBinding>(inflater,
         R.layout.fragment_main_page, container, false)
     binding.viewModel = this
-    mPresenter.getSectionListTopRating(RATING, PAGE)
-    mMainPageAdapter.setItemInternalBookListener(this)
+    mPresenter.getSectionListTopRating()
+    mMainPageAdapterLateBook.setItemInternalBookListener(this)
+    mMainPageAdapterRatingBook.setItemInternalBookListener(this)
     return binding.root
   }
 
@@ -66,8 +71,13 @@ class MainPageFragment : BaseFragment(), MainPageContract.ViewModel, onItemRecyc
     mDialogManager.dialogError(error.getMessageError())
   }
 
-  override fun onGetSectionListTopRatingSuccess(listBook: List<Book>?) {
-    mMainPageAdapter.updateData(listBook)
+  override fun onGetSectionListBookSuccess(typeBook: Int, listBook: List<Book>?) {
+    when (typeBook) {
+      TypeBook.LATE_BOOK -> mMainPageAdapterLateBook.updateDataLateBook(listBook,
+          TypeBook.LATE_BOOK)
+      TypeBook.RATING_BOOK -> mMainPageAdapterRatingBook.updateDataRatingBook(listBook,
+          TypeBook.RATING_BOOK)
+    }
   }
 
   override fun onItemClickListener(any: Any?) {
@@ -81,8 +91,5 @@ class MainPageFragment : BaseFragment(), MainPageContract.ViewModel, onItemRecyc
     fun newInstance(): MainPageFragment {
       return MainPageFragment()
     }
-
-    private val RATING = "rating"
-    private val PAGE = 1
   }
 }

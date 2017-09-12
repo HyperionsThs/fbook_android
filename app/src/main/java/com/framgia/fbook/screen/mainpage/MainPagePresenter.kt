@@ -22,14 +22,20 @@ class MainPagePresenter(private val mBookRepository: BookRepository) : MainPageC
     mCompositeDisposable.clear()
   }
 
-  override fun getSectionListTopRating(field: String?, page: Int?) {
-    val disposable: Disposable = mBookRepository.getSectionListTopRating(field, page)
+  override fun getSectionListTopRating() {
+    val disposable: Disposable = mBookRepository.getSectionListBook(LATE, PAGE)
         .subscribeOn(mSchedulerProvider.io())
         .doOnSubscribe { mViewModel.onShowProgressDialog() }
         .doAfterTerminate { mViewModel.onDismissProgressDialog() }
+        .flatMap { listBookLateResponse ->
+          mViewModel.onGetSectionListBookSuccess(TypeBook.LATE_BOOK,
+              listBookLateResponse.item?.data)
+          mBookRepository.getSectionListBook(RATING, PAGE)
+        }
         .observeOn(mSchedulerProvider.ui())
-        .subscribe({ listBookResponse ->
-          mViewModel.onGetSectionListTopRatingSuccess(listBookResponse.item?.data)
+        .subscribe({ listBookRatingResponse ->
+          mViewModel.onGetSectionListBookSuccess(TypeBook.RATING_BOOK,
+              listBookRatingResponse.item?.data)
         }, { error ->
           mViewModel.onError(error as BaseException)
         })
@@ -46,5 +52,11 @@ class MainPagePresenter(private val mBookRepository: BookRepository) : MainPageC
 
   companion object {
     private val TAG = MainPagePresenter::class.java.name
+
+    private val LATE = "latest"
+    private val VIEW = "view"
+    private val RATING = "rating"
+    private val WAITING = "waiting"
+    private val PAGE = 1
   }
 }

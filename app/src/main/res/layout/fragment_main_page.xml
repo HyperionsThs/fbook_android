@@ -68,6 +68,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout_lastest"
+            bind:recyclerAdapter="@{viewModel.mMainPageAdapterLateBook}"
             tools:ignore="MissingConstraints"
             />
         <RelativeLayout
@@ -171,7 +172,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout_rating"
-            bind:recyclerAdapter="@{viewModel.mMainPageAdapter}"
+            bind:recyclerAdapter="@{viewModel.mMainPageAdapterRatingBook}"
             tools:ignore="MissingConstraints"
             />
         <RelativeLayout

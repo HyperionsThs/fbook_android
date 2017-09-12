@@ -12,21 +12,21 @@ interface MainPageContract {
   /**
    * View.
    */
-  interface ViewModel : BaseViewModel{
+  interface ViewModel : BaseViewModel {
     fun onError(error: BaseException)
 
-    fun onGetSectionListTopRatingSuccess(listBook: List<Book>?)
+    fun onGetSectionListBookSuccess(typeBook: Int, listBook: List<Book>?)
 
     fun onShowProgressDialog()
 
     fun onDismissProgressDialog()
+
   }
 
   /**
    * Presenter.
    */
-  interface Presenter : BasePresenter<ViewModel>{
-    fun getSectionListTopRating(field: String?,
-        page: Int?)
+  interface Presenter : BasePresenter<ViewModel> {
+    fun getSectionListTopRating()
   }
 }
