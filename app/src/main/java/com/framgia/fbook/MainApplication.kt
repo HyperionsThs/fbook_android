@@ -1,7 +1,13 @@
 package com.framgia.fbook
 
+import android.app.NotificationManager
+import android.content.Context
+import android.graphics.BitmapFactory
+import android.media.RingtoneManager
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
+import android.support.v4.app.NotificationCompat
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.framgia.fbook.data.source.remote.api.NetworkModule
@@ -21,7 +27,7 @@ class MainApplication : MultiDexApplication() {
 
   lateinit var appComponent: AppComponent
 
-  private val TAG = MainApplication::javaClass.name
+  private val TAG = MainApplication::class.java.simpleName
 
   override fun onCreate() {
     super.onCreate()
@@ -74,11 +80,28 @@ class MainApplication : MultiDexApplication() {
   private fun listenerPusher(nativePusher: PushNotificationRegistration?) {
     nativePusher?.setFCMListener { remoteMessage ->
       remoteMessage?.let {
-        //TODO edit later
-        val message = remoteMessage.notification.body
-        Log.d(TAG, "RemoteMessage: " + remoteMessage.from)
-        Log.d(TAG, "Message: " + message)
+        //todo edit later
+//        showNotification(remoteMessage.notification.title)
       }
     }
+  }
+
+  private fun showNotification(message: String) {
+    val uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+    val builder = NotificationCompat.Builder(this)
+        .setSmallIcon(R.drawable.ic_books)
+        .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        .setLargeIcon(BitmapFactory.decodeResource(resources,
+            R.mipmap.ic_launcher_round))
+        .setAutoCancel(true)
+        .setSound(uri)
+        .setDefaults(NotificationCompat.DEFAULT_ALL)
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
+        .setContentTitle(message)
+        .setContentText(message)
+    val notificationManager: NotificationManager = getSystemService(
+        Context.NOTIFICATION_SERVICE) as NotificationManager
+    notificationManager.notify(99, builder.build())
+
   }
 }

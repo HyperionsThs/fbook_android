@@ -61,7 +61,7 @@ android {
   applicationVariants.all { variant ->
     def APP_KEY = "6a8c057c782e29509c31"
     def CLUSTER_KEY = "ap1"
-    def CHANNEL_KEY = "channel_notification"
+    def CHANNEL_KEY = "keyChannelFcmAndroid"
     def EVENT_KEY = "App\\\\Events\\\\NotificationHandler"
     variant.buildConfigField "String", "APP_KEY", "\"${APP_KEY}\""
     variant.buildConfigField "String", "CLUSTER_KEY", "\"${CLUSTER_KEY}\""
