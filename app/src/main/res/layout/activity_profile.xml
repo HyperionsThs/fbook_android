@@ -209,7 +209,7 @@
                                 android:orientation="horizontal"
                                 android:paddingBottom="@dimen/dp_5"
                                 android:paddingTop="@dimen/dp_7"
-                                android:weightSum="6.1"
+                                android:weightSum="5"
                                 tools:ignore="DisableBaselineAlignment"
                                 >
                                 <LinearLayout
@@ -313,38 +313,6 @@
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1.2"
-                                    android:clickable="true"
-                                    android:focusable="true"
-                                    android:gravity="center"
-                                    android:onClick="@{() -> viewModel.onClickSuggested()}"
-                                    android:orientation="vertical"
-                                    >
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center"
-                                        android:paddingBottom="@dimen/dp_10"
-                                        android:textColor="@color/color_white"
-                                        android:textSize="@dimen/sp_13"
-                                        bind:setSize="@{viewModel.mNumberOfSuggested}"
-                                        />
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/suggested"
-                                        />
-                                </LinearLayout>
-                                <View
-                                    android:layout_width="@dimen/dp_1"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginBottom="@dimen/dp_5"
-                                    android:layout_marginTop="@dimen/dp_5"
-                                    android:background="@color/color_red_mos"
-                                    />
-                                <LinearLayout
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:clickable="true"
                                     android:focusable="true"
@@ -377,7 +345,7 @@
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.9"
+                                    android:layout_weight="1"
                                     android:clickable="true"
                                     android:focusable="true"
                                     android:gravity="center"

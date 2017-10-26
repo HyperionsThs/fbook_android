@@ -47,7 +47,6 @@ open class ProfileActivity : BaseActivity(), ProfileContract.ViewModel {
   val mNumberOfWaiting: ObservableField<Int> = ObservableField(0)
   val mNumberOfReading: ObservableField<Int> = ObservableField(0)
   val mNumberOfReturned: ObservableField<Int> = ObservableField(0)
-  val mNumberOfSuggested: ObservableField<Int> = ObservableField(0)
   val mNumberOfSharing: ObservableField<Int> = ObservableField(0)
   val mPageLimit: ObservableField<Int> = ObservableField(PAGE_LIMIT)
   val mIsVisibleButtonFollow: ObservableField<Boolean> = ObservableField()
@@ -165,27 +164,23 @@ open class ProfileActivity : BaseActivity(), ProfileContract.ViewModel {
   }
 
   fun onClickSharing() {
-    //TOdo Edit later
+    onNextBookInUserDetail(PAGE_SHARING)
   }
 
   fun onClickReading() {
-    //TOdo Edit later
+    onNextBookInUserDetail(PAGE_READING)
   }
 
   fun onClickWaiting() {
-    //TOdo Edit later
+    onNextBookInUserDetail(PAGE_WAITING)
   }
 
   fun onClickReturned() {
-    //TOdo Edit later
-  }
-
-  fun onClickSuggested() {
-    //TOdo Edit later
+    onNextBookInUserDetail(PAGE_RETURNED)
   }
 
   fun onClickReview() {
-    //TOdo Edit later
+    onNextBookInUserDetail(PAGE_REVIEW)
   }
 
   fun onClickFollowOrUnFollowUser(view: View) {
@@ -197,12 +192,25 @@ open class ProfileActivity : BaseActivity(), ProfileContract.ViewModel {
     mPresenter.followOrUnFollow(followOrUnFollowUserRequest)
   }
 
+  private fun onNextBookInUserDetail(page: Int) {
+    val bundle = Bundle()
+    val idUser: Int? = mUser.get().id
+    if (idUser != null) {
+      bundle.putInt(Constant.BOOK_DETAIL_IN_USER_EXTRA, idUser)
+      bundle.putInt(Constant.USER_BOOK_DETAIL_PAGE_EXTRA, page)
+      mNavigator.startActivity(OtherUserActivity::class.java, bundle)
+    }
+  }
+
+
   companion object {
     private val PAGE_LIMIT = 1
     val TAG: String = ProfileActivity::class.java.name
-    fun newInstance(): ProfileActivity {
-      return ProfileActivity()
-    }
+    private val PAGE_SHARING = 0
+    private val PAGE_READING = 1
+    private val PAGE_WAITING = 2
+    private val PAGE_RETURNED = 3
+    private val PAGE_REVIEW = 4
   }
 
   fun getProfileComponent(): ProfileComponent {

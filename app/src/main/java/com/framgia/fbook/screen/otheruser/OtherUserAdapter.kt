@@ -39,9 +39,9 @@ class OtherUserAdapter(private val mContext: Context, private val mUserId: Int?,
 
   override fun getPageTitle(position: Int): CharSequence {
     when (position) {
+      Constant.TabOtherInUser.TAB_SHARING_BOOK -> return mContext.getString(R.string.sharing_books)
       Constant.TabOtherInUser.TAB_READING_BOOK -> return mContext.getString(R.string.reading_books)
       Constant.TabOtherInUser.TAB_WAITING_BOOK -> return mContext.getString(R.string.waiting_books)
-      Constant.TabOtherInUser.TAB_SHARING_BOOK -> return mContext.getString(R.string.sharing_books)
       Constant.TabOtherInUser.TAB_RETURNED_BOOK -> return mContext.getString(
           R.string.returned_books)
       Constant.TabOtherInUser.TAB_REVIEW_BOOK -> return mContext.getString(R.string.reviewed_books)

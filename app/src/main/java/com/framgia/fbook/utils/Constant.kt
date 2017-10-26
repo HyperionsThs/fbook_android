@@ -32,7 +32,6 @@ object Constant {
   val KEY_OFFICE = "KEY_OFFICE"
   val KEY_TYPE = "KEY_TYPE"
 
-
   object Tab {
     val TAB_HOME = 0
     val TAB_MY_BOOK = 1
@@ -64,9 +63,9 @@ object Constant {
   }
 
   object TabOtherInUser {
-    val TAB_READING_BOOK = 0
-    val TAB_WAITING_BOOK = 1
-    val TAB_SHARING_BOOK = 2
+    val TAB_SHARING_BOOK = 0
+    val TAB_READING_BOOK = 1
+    val TAB_WAITING_BOOK = 2
     val TAB_RETURNED_BOOK = 3
     val TAB_REVIEW_BOOK = 4
 
@@ -78,10 +77,10 @@ object Constant {
   }
 
   object RequestCodeBookInUser {
-    val TAB_READING_BOOK = "reading"
-    val TAB_RETURNED_BOOK = "returned"
-    val TAB_WAITING_BOOK = "waiting"
     val TAB_SHARING_BOOK = "sharing"
+    val TAB_READING_BOOK = "reading"
+    val TAB_WAITING_BOOK = "waiting"
+    val TAB_RETURNED_BOOK = "returned"
     val TAB_REVIEWED_BOOK = "reviewed"
   }
 
